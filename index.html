@@ -245,7 +245,6 @@ str(durationsOnt)</code></pre>
 ##  3rd Qu.:2.000                        3rd Qu.:6.339  
 ##  Max.   :2.000                        Max.   :8.479  
 ## </code></pre>
-<pre class="r"><code>data(package = &quot;languageR&quot;)</code></pre>
 </div>
 <div id="eda-2" class="section level3">
 <h3>EDA 2</h3>
@@ -257,6 +256,7 @@ durationsOnt %&gt;%
   filter(., Frequency &gt; 0) %&gt;% 
   # delete the columns that contain data not regarded in the coming analysis
   select(., Word, DurationOfPrefix, DurationPrefixVowel) %&gt;% 
+  #cleaning up the output, just giving 6 examples of the data
   head()</code></pre>
 <pre><code>##              Word DurationOfPrefix DurationPrefixVowel
 ## 24       ontbeten         0.113372            0.069467

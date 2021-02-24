@@ -1,5 +1,5 @@
 ---
-title: "durantions Ont"
+title: "DurantionsOnt"
 output: html_document
 ---
 
@@ -14,7 +14,6 @@ view(durationsOnt)
 str(durationsOnt)
 summary(durationsOnt)
 
-data(package = "languageR")
 ```
 
 ### EDA 2
