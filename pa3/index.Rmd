@@ -1,0 +1,102 @@
+---
+title: "durantions Ont"
+output: html_document
+---
+
+
+### EDA 1
+```{r}
+
+# EDA 1 Load the dataset of your choice and get information about its structure (remember all code needs to be inside a knitr code chunk).
+library(tidyverse)
+library(languageR)
+view(durationsOnt)
+str(durationsOnt)
+summary(durationsOnt)
+
+data(package = "languageR")
+```
+
+### EDA 2
+```{r}
+
+# EDA 2 Tidy the dataset (every variable gets a column, every observation occupies a single row), if necessary
+library(tidyverse)
+library(languageR)
+durationsOnt %>% 
+  # filter out the 0 frequency data
+  filter(., Frequency > 0) %>% 
+  # delete the columns that contain data not regarded in the coming analysis
+  select(., Word, DurationOfPrefix, DurationPrefixVowel) %>% 
+  #cleaning up the output, just giving 6 examples of the data
+  head()
+
+
+```
+
+### EDA 3
+```{r}
+
+# EDA 3 Calculate descriptive statistics of your choice.
+library(tidyverse)
+library(languageR)
+durationsOnt %>% 
+   # filter out the 0 frequency data
+  filter(., Frequency > 0) %>% 
+  # delete the columns that contain data not regarded in the coming analysis
+  select(., Word, DurationOfPrefix, DurationPrefixVowel) %>% 
+  # Calculate descriptive statistics
+  summarize(., mean_DP = mean(DurationOfPrefix), 
+            mean_DPV = mean(DurationPrefixVowel), 
+            sd_DP = sd(DurationOfPrefix), 
+            sd_DPV = sd(DurationPrefixVowel),
+            max_DP = max(DurationOfPrefix),
+            max_DPV = max(DurationPrefixVowel),
+            min_DP = min(DurationOfPrefix),
+            min_DPV = min(DurationPrefixVowel)) %>% 
+  # make a table to present the summary
+  knitr::kable(.,format = "simple")
+
+```
+
+### EDA 4
+```{r}
+# EDA 4 Select two continuous variables and fit a model to the data (bivariate regression).'
+library(tidyverse)
+library(languageR)
+durationsOnt %>% 
+  # filter out the 0 frequency data
+  filter(., Frequency > 0) %>% 
+  lm(DurationOfPrefix ~ DurationPrefixVowel, data =.) %>% 
+  summary()
+
+```
+
+### EDA 5
+```{r}
+# EDA 5 Generate a plot that includes a regression line.
+library(tidyverse)
+library(languageR)
+durationsOnt %>% 
+  # filter out the 0 frequency data
+  filter(., Frequency > 0) %>% 
+    ggplot(., aes(x = DurationPrefixVowel, y = DurationOfPrefix)) +
+    geom_point() +
+    geom_smooth(method = lm)
+
+```
+
+### EDA 6
+```{r}
+# EDA 6 Write up some general observations (1-2 paragraphs max)
+library(tidyverse)
+library(languageR)
+  y <- filter(durationsOnt, Frequency>0)$DurationOfPrefix
+  x <- filter(durationsOnt, Frequency>0)$DurationPrefixVowel
+# test bivariant correlation
+  cor.test(y, x) 
+
+```
+#### General Observation:
+    In the verbal production of dutch word with a prefix *ont*, the total duration of the prefix and the duration of the prefixvowel present a linear correlation. DurationOfPrefix as function of DurationPrefixVowel can fit the linear equation, with intercept of 0.068055, and slope of 1.276144.
+
